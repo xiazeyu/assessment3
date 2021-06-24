@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint,render_template
 
 bp = Blueprint('content', __name__)
 
@@ -12,18 +12,18 @@ bp = Blueprint('content', __name__)
 #   information including event status
 # /?category=<str> - landing page with specific category
 def list_items():
-    return 'list_items'
+     return render_template ('content/list_items.html')
 
 
 @bp.route('/details')
 # /details?event_id=<int> - detail page of the event
 #   image description date other
 def details():
-    return 'details'
+     return render_template ('content/detials.html')
 
 
 @bp.route('/new_comment')
 # /new_comment?event_id=<int> - new comment event handler
 #   author review date
 def new_comment():
-    return 'new_comment'
+     return render_template ('content/detials.html')
