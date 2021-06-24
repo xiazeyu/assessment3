@@ -4,6 +4,5 @@ class User(db.Model):
     emailid = db.Column(db.String(100), index=True, nullable=False)
     phonenumber = db.Column(db.String(100), index=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
-
-
+    
     
