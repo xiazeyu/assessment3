@@ -1,13 +1,13 @@
-from concert import db
-from concert.models import User
-from concert import creat_app
+from app import db
+from app.models import User
+from app import create_app
 
-app = creat_app()
+app = create_app()
 
 ctx = app.app_context()
 ctx.push()
 
-db.creat_all()
+db.create_all()
 
 #creat first user object
 user1 = User(id='1',name='Tina',emailid='2544505726@qq.com',phonenumber='18021870939',password_hash='test')
