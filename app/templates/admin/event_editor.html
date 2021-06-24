@@ -1,1 +1,136 @@
- 
+{% extends "../base.html" %} {% block header %}
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+  <li class="nav-item">
+    <a class="nav-link" aria-current="page" href="/">Home</a>
+  </li>
+  <li class="nav-item dropdown">
+    <a
+      class="nav-link dropdown-toggle active"
+      id="navbarDropdown"
+      role="button"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      Music Events Management
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="#">Event Editor</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/order/booking_history">Booking History</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/logout">Logout</a>
+  </li>
+</ul>
+
+{% endblock %} {% block content %}
+<div class="container col-xxl-8 px-4 py-5">
+  <h2 class="text-center">Create new event</h2>
+  <form class="row">
+    <div class="col-4 mb-3">
+      <label for="name" class="form-label">Event Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        placeholder="Event Name"
+        required
+      />
+    </div>
+    <div class="col-4 mb-3">
+      <label for="artist" class="form-label">Artist</label>
+      <input
+        type="text"
+        class="form-control"
+        id="artist"
+        placeholder="Artist"
+        required
+      />
+    </div>
+    <div class="col-4 mb-3">
+      <p>Type</p>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="type"
+          id="vocal"
+          value="vocal"
+        />
+        <label class="form-check-label" for="vocal">vocal</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="type"
+          id="classical"
+          value="classical"
+        />
+        <label class="form-check-label" for="classical">classical</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="type"
+          id="pop"
+          value="pop"
+        />
+        <label class="form-check-label" for="pop">pop</label>
+      </div>
+    </div>
+    <div class="col-6 mb-3">
+      <label for="image" class="form-label">Upload image</label>
+      <input class="form-control" type="file" id="image" />
+    </div>
+    <div class="col-6 mb-3">
+      <label for="venue" class="form-label">Venue</label>
+      <input
+        type="text"
+        class="form-control"
+        id="venue"
+        placeholder="Venue"
+        required
+      />
+    </div>
+    <div class="col-12 mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" rows="3"></textarea>
+    </div>
+    <div class="col-6 mb-3">
+      <label for="date" class="form-label">Date</label>
+      <input type="date" class="form-control" id="date" required />
+    </div>
+    <div class="col-6 mb-3">
+      <label for="time" class="form-label">Time</label>
+      <input type="time" class="form-control" id="time" required />
+    </div>
+    <div class="col-6 mb-3">
+      <label for="status" class="form-label">Status</label>
+      <select name="status" class="form-select" aria-label="Select the status">
+        <option selected>Status</option>
+        <option value="1">Active</option>
+        <option value="2">Upcoming</option>
+        <option value="3">Inactive</option>
+      </select>
+    </div>
+    <div class="col-6 mb-3">
+      <label for="ticketcount" class="form-label">Ticket Count</label>
+      <input
+        type="number"
+        class="form-control"
+        id="ticketcount"
+        placeholder="Ticket Count"
+        required
+      />
+    </div>
+
+    <button class="w-100 btn btn-primary btn-lg" type="submit">
+      Create new event
+    </button>
+  </form>
+</div>
+{% endblock %}
