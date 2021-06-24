@@ -1,1 +1,114 @@
- 
+{% extends "../base.html" %} {% block header %}
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+  <li class="nav-item">
+    <a class="nav-link" aria-current="page" href="/">Home</a>
+  </li>
+  <li class="nav-item dropdown">
+    <a
+      class="nav-link dropdown-toggle active"
+      id="navbarDropdown"
+      role="button"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      Music Events Management
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/order/booking_history">Booking History</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/logout">Logout</a>
+  </li>
+</ul>
+
+{% endblock %} {% block content %}
+<div class="container col-xxl-8 px-4 py-5">
+  <h2 class="text-center">Booking History</h2>
+</div>
+<div class="container table-responsive">
+  <table class="table table-striped table-sm table-hover">
+    <thead>
+      <tr>
+        <th>Order #</th>
+        <th>Event name</th>
+        <th>Image</th>
+        <th>Booking Date</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>#47279967</td>
+        <td>Lorem</td>
+        <td><img height="128" width="128" src="imgs/c1.jpg" /></td>
+        <td>2021.4.18</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>#44005434</td>
+        <td>ipsum</td>
+        <td><img height="128" width="128" src="imgs/c2.jpg" /></td>
+        <td>2021.5.16</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>#21189011</td>
+        <td>dolor</td>
+        <td><img height="128" width="128" src="imgs/c3.jpg" /></td>
+        <td>2021.6.7</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>#32299270</td>
+        <td>sit</td>
+        <td><img height="128" width="128" src="imgs/c4.jpg" /></td>
+        <td>2021.6.26</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>#2953554</td>
+        <td>amet</td>
+        <td><img height="128" width="128" src="imgs/p1.webp" /></td>
+        <td>2021.8.12</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>#20641938</td>
+        <td>consectetur</td>
+        <td><img height="128" width="128" src="imgs/p2.webp" /></td>
+        <td>2021.8.13</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>#66837555</td>
+        <td>adipiscing</td>
+        <td><img height="128" width="128" src="imgs/p3.webp" /></td>
+        <td>2021.9.16</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>#10805685</td>
+        <td>elit</td>
+        <td><img height="128" width="128" src="imgs/p4.jpg" /></td>
+        <td>2021.9.23</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>#61511137</td>
+        <td>Pellentesque</td>
+        <td><img height="128" width="128" src="imgs/p5.jpg" /></td>
+        <td>2021.10.8</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>#35444828</td>
+        <td>dictum</td>
+        <td><img height="128" width="128" src="imgs/v1.webp" /></td>
+        <td>2021.10.14</td>
+        <td>2</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}

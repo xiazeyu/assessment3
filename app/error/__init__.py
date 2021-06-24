@@ -1,15 +1,17 @@
-from flask import Blueprint
+from flask import Blueprint, render_template
 
-bp = Blueprint('error', __name__, url_prefix='/error')
+bp = Blueprint('error', __name__)
 
 #   allows users to navigate back to the landing/home page
 # /error - internal server errors
-@bp.route('/')
+
+
+@bp.errorhandler(Exception)
 def error():
-  return 'error'
+    return render_template('error/error.html')
 
 
 # /error/404 - page not found
-@bp.route('/404')
-def error_404():
-  return 'error_404'
+@bp.errorhandler(404)
+def error_404(e):  # error view function
+    return render_template('error/404.html'), 404

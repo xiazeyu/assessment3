@@ -1,8 +1,398 @@
-<html>
-  <head>
-    <title></title>
-    <meta content="">
-    <style></style>
-  </head>
-  <body></body>
-</html>
+{% extends "../base.html" %} {% block header %}
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+  <li class="nav-item">
+    <a class="nav-link" aria-current="page" href="/">Home</a>
+  </li>
+  <li class="nav-item dropdown">
+    <a
+      class="nav-link dropdown-toggle active"
+      id="navbarDropdown"
+      role="button"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      Music Events Management
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/order/booking_history">Booking History</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/logout">Logout</a>
+  </li>
+</ul>
+
+{% endblock %} {% block content %}
+<div class="b-divider"></div>
+<div class="container col-xxl-8 px-4 py-5">
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+    <div class="col-10 col-sm-8 col-lg-6">
+      <img
+        class="rounded-lg-3"
+        height="384"
+        width="384"
+        class="img-fluid"
+        src="imgs/v1.webp"
+        class="d-block mx-lg-auto img-fluid"
+        loading="lazy"
+      />
+    </div>
+    <div class="col-lg-6">
+      <h1 class="display-5 fw-bold lh-1 mb-3">The Greate Music Concert</h1>
+      <p class="lead">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+        facilisis mi dolor, in condimentum nulla aliquet sit amet. Donec nec.
+      </p>
+    </div>
+  </div>
+</div>
+<div class="container col-xxl-8 px-4 py-5">
+  <div class="row align-items-center g-lg-5 py-5">
+    <div class="col-lg-7 text-center text-lg-start">
+      <p class="col-lg-10 fs-4 fw-bold">The Greate Music Concert</p>
+      <p class="lead">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+        facilisis mi dolor, in condimentum nulla aliquet sit amet. Donec nec.
+      </p>
+      <p class="col-lg-10 fs-4">Type: Vocal</p>
+      <p class="col-lg-10 fs-4">Date & Time: 2077.1.1 12:00 p.m.</p>
+      <p class="col-lg-10 fs-4">Artist: Johnny Silverhand</p>
+      <p class="col-lg-10 fs-4">
+        Venue: Top Floor, The BIG Building, Nightcity
+      </p>
+      <p class="col-lg-10 fs-4">Ticket remains: <strong>499</strong></p>
+      <p class="col-lg-10 fs-4">Price per ticket: <strong>$20</strong></p>
+      <p class="col-lg-10 fs-4">Status: Active</p>
+      <p class="col-lg-10 fs-4">Creator: CD Project</p>
+      <button type="button" class="btn btn-primary" disabled>
+        Update event details
+      </button>
+    </div>
+
+    <div class="col-md-10 mx-auto col-lg-5">
+      <form class="p-4 p-md-5 border rounded-3 bg-light">
+        <h4 class="mb-3">Payment</h4>
+        <div class="form-floating mb-3 row g-3">
+          <div class="form-floating col-sm-6">
+            <input
+              type="text"
+              class="form-control"
+              id="firstName"
+              placeholder=""
+              required
+            />
+            <label for="firstName">First Name</label>
+            <div class="invalid-feedback">Valid first name is required.</div>
+          </div>
+          <div class="form-floating col-sm-6">
+            <input
+              type="text"
+              class="form-control"
+              id="lastName"
+              placeholder=""
+              required
+            />
+            <label for="lastName">Last Name</label>
+            <div class="invalid-feedback">Valid last name is required.</div>
+          </div>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="email" />
+          <label for="email"
+            >Email address<span class="text-muted">(Optional)</span></label
+          >
+          <div class="invalid-feedback">Valid Email address is required.</div>
+        </div>
+
+        <div
+          class="modal fade"
+          id="quantityModal"
+          tabindex="-1"
+          aria-labelledby="quantityModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="quantityModalLabel">
+                  Enter Quantity
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="form-floating">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="quantity"
+                    value="1"
+                    required
+                  />
+                  <label for="quantity">Quantity</label>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-bs-dismiss="modal"
+                >
+                  Save changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#quantityModal"
+          >
+            Enter Quantity
+          </button>
+        </div>
+
+        <div class="my-3">
+          <div class="form-check">
+            <input
+              id="cash"
+              name="paymentMethod"
+              type="radio"
+              class="form-check-input"
+              checked
+              required
+            />
+            <label class="form-check-label" for="cash">Cash</label>
+          </div>
+          <div class="form-check">
+            <input
+              id="paypal"
+              name="paymentMethod"
+              type="radio"
+              class="form-check-input"
+              required
+            />
+            <label class="form-check-label" for="paypal">PayPal</label>
+          </div>
+          <div class="form-check">
+            <input
+              id="alipay"
+              name="paymentMethod"
+              type="radio"
+              class="form-check-input"
+              required
+            />
+            <label class="form-check-label" for="alipay">AliPay</label>
+          </div>
+        </div>
+
+        <hr class="my-4" />
+
+        <li class="list-group-item d-flex justify-content-between">
+          <span>Total (USD)</span>
+          <strong>$20</strong>
+        </li>
+
+        <hr class="my-4" />
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit">
+          BOOK NOW!
+        </button>
+        <hr class="my-4" />
+
+        <small class="text-muted"
+          >By clicking BOOK NOW!, you agree to the terms of use.</small
+        >
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="b-divider"></div>
+
+<div class="container col-xxl-8 px-4 py-5">
+  <h2>Comments</h2>
+  <div
+    id="comments"
+    class="carousel carousel-dark slide"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-inner text-center">
+      <div class="carousel-item active">
+        <div class="row">
+          <div class="col-lg-4">
+            <img
+              class="rounded-circle"
+              width="140"
+              height="140"
+              src="imgs/ava.png"
+            />
+            <h2>Smart User 1</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
+              bibendum.
+            </p>
+          </div>
+          <div class="col-lg-4">
+            <img
+              class="rounded-circle"
+              width="140"
+              height="140"
+              src="imgs/ava.png"
+            />
+            <h2>Smart User 2</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
+              bibendum.
+            </p>
+          </div>
+          <div class="col-lg-4">
+            <img
+              class="rounded-circle"
+              width="140"
+              height="140"
+              src="imgs/ava.png"
+            />
+            <h2>Smart User 3</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
+              bibendum.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="row">
+          <div class="col-lg-4">
+            <img
+              class="rounded-circle"
+              width="140"
+              height="140"
+              src="imgs/ava.png"
+            />
+            <h2>Smart User 4</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
+              bibendum.
+            </p>
+          </div>
+          <div class="col-lg-4">
+            <img
+              class="rounded-circle"
+              width="140"
+              height="140"
+              src="imgs/ava.png"
+            />
+            <h2>Smart User 5</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
+              bibendum.
+            </p>
+          </div>
+          <div class="col-lg-4">
+            <img
+              class="rounded-circle"
+              width="140"
+              height="140"
+              src="imgs/ava.png"
+            />
+            <h2>Smart User 6</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
+              bibendum.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="row">
+          <div class="col-lg-4">
+            <img
+              class="rounded-circle"
+              width="140"
+              height="140"
+              src="imgs/ava.png"
+            />
+            <h2>Smart User 7</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
+              bibendum.
+            </p>
+          </div>
+          <div class="col-lg-4">
+            <img
+              class="rounded-circle"
+              width="140"
+              height="140"
+              src="imgs/ava.png"
+            />
+            <h2>Smart User 8</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
+              bibendum.
+            </p>
+          </div>
+          <div class="col-lg-4">
+            <img
+              class="rounded-circle"
+              width="140"
+              height="140"
+              src="imgs/ava.png"
+            />
+            <h2>Smart User 9</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
+              bibendum.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#comments"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#comments"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+<div class="container col-xxl-8 px-4 py-5">
+  <h2>Post new comment</h2>
+  <form class="row g-3">
+    <div class="form-floating col-12">
+      <textarea
+        class="form-control"
+        placeholder="Leave a comment here"
+        id="comment"
+        style="height: 100px"
+      ></textarea>
+      <label for="comment">Leave a comment here</label>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
