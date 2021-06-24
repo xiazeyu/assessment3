@@ -1,49 +1,67 @@
 from . import db
+from flask_login import UserMixin
 
-class User(db.Model):
-    __tablename__= 'users'
+
+class User(db.Model, UserMixin):
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), index=True, unique=True, nullable=False)
-    emailid = db.Column(db.String(100), index=True, nullable=False)
-    phonenumber = db.Column(db.String(100), index=True, nullable=False)
-    password_hash = db.Column(db.String(255), nullable=False)
+    role = db.Column(db.String(32), index=False, nullable=False)
+    username = db.Column(db.String(128), index=True,
+                         unique=True, nullable=False)
+    emailid = db.Column(db.String(128), index=False, nullable=False)
+    phonenumber = db.Column(db.String(128), index=False, nullable=False)
+    password_hash = db.Column(db.String(128), nullable=False)
     # relation to call user.comments and comment.user
     comments = db.relationship('Comment', backref='user')
-    def __repr__(self): #string print method
-        return "<Name: {}, ID: {}>".format(self.name, self.id)  
+    # relation to call user.bookings and booking.user
+    bookings = db.relationship('Booking', backref='user')
 
-class Destination(db.Model):
-    __tablename__= 'destinations' 
+    def __repr__(self):  # string print method
+        return "<id: {}, name: {}>".format(self.id, self.name)
+
+
+class Event(db.Model):
+    __tablename__ = 'events'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100),index=True,nullable=False)
-    type = db.Column(db.String(100))
-    venue = db.Column(db.String(100))
-    date = db.Column(db.Date)
-    time = db.Column(db.Time)
-    artist = db.Column(db.String(100))
-    description = db.Column(db.String(300))
-    ticketcount = db.Column(db.Integer)
-    # relation to call destination.comments and comment.destination
-    comments = db.relationship('Comment', backref='destination')
-    def __repr__(self): #string print method
-        return "<Name: {}>".format(self.name)
+    name = db.Column(db.String(128), index=True, nullable=False)
+    type = db.Column(db.String(64), nullable=False)
+    venue = db.Column(db.String(128), nullable=False)
+    datetime = db.Column(db.DateTime, nullable=False)
+    price = db.Column(db.Integer)
+    artist = db.Column(db.String(128), nullable=False)
+    description = db.Column(db.String(384), nullable=False)
+    ticketcount = db.Column(db.Integer, nullable=False)
+    status = db.Column(db.String(64), nullable=False)
+    creator_id = db.Column(
+        db.Integer, db.ForeignKey('users.id'), nullable=False)
+    # relation to call event.comments and comment.event
+    comments = db.relationship('Comment', backref='events')
+
+    def __repr__(self):  # string print method
+        return "<id: {}, name: {}>".format(self.id, self.name)
+
 
 class Booking(db.Model):
     __tablename__ = 'bookings'
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.Date)
+    datetime = db.Column(db.DateTime)
     qunantity = db.Column(db.Integer)
+    price = db.Column(db.Integer)
     payment = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    destination_id = db.Column(db.Integer,db.ForeignKey('destinations.id'))
-    
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
+
+    def __repr__(self):  # string print method
+        return "<id: {}, user: {}, event: {}>".format(self.id, self.user_id, self.event_id)
+
+
 class Comment(db.Model):
     __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(500))
+    text = db.Column(db.String(512))
     created_at = db.Column(db.DateTime)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    destination_id = db.Column(db.Integer, db.ForeignKey('destinations.id'))
-    def __repr__(self):
-        return "<Comment: {}>".format(self.text)
+    creator_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
 
+    def __repr__(self):
+        return "<id: {}, Comment: {}, Creator: {}>".format(self.id, self.text, self.creator_id)
