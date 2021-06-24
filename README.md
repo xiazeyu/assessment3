@@ -1,6 +1,6 @@
 # Assessment3
 
-## Sports Event Management
+## Music Event Management
 
 #### Group Member
 
