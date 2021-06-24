@@ -7,3 +7,7 @@ class LoginForm(Form):
     accountNumber = StringField('accountNumber', validators=[DataRequired('accountNumber is null')])
     password = PasswordField('password', validators=[DataRequired('password is null')])
 
+from flask import Flask, render_template, request, redirect
+app=Flask(__name__)
+
+
