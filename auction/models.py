@@ -37,7 +37,7 @@ class Booking(db.Model):
 class Comment(db.Model):
     __table.name__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(400))
+    text = db.Column(db.String(500))
     created_at = db.Column(db.DateTime, default=datetime.now())
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     destination_id = db.Column(db.Integer, db.ForeignKey('destinations.id'))
