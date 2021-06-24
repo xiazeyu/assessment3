@@ -5,18 +5,22 @@ class User(db.Model):
     emailid = db.Column(db.String(100), index=True, nullable=False)
     phonenumber = db.Column(db.String(100), index=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
+    # relation to call user.comments and comment.user
+    comments = db.relationship('Comment', backref='user')
 
 class Destination(db.Model):
     __table.name__= 'destinations' 
     id = db.Column(db.Integer, primary_key=True)
-    sportname = db.Column(db.String(100),index=True,nullable=False)
-    sporttype = db.Column(db.String(100))
-    sportvenue = db.Column(db.String(100))
-    sportdate = db.Column(db.Date)
-    sporttime = db.Column(db.String(20))
-    playername = db.Column(db.String(100))
-    description = db.Column(db.String(400))
-    totalticket = db.Column(db.Integer)
+    name = db.Column(db.String(100),index=True,nullable=False)
+    type = db.Column(db.String(100))
+    venue = db.Column(db.String(100))
+    date = db.Column(db.Date)
+    time = db.Column(db.Time)
+    artist = db.Column(db.String(100))
+    description = db.Column(db.String(300))
+    ticketcount = db.Column(db.Integer)
+    # relation to call destination.comments and comment.destination
+    comments = db.relationship('Comment', backref='destination')
 def __repr__(self): #string print method
     return "<Name: {}>".format(self.name)
 
@@ -24,16 +28,16 @@ class Booking(db.Model):
     __table.name__ = 'bookings'
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date)
-    numaudience = db.Column(db.Integer)
-    numseat = db.Column(db.Integer)
-    fare = db.Column(db.Integer)
+    qunantity = db.Column(db.Integer)
+    payment = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     destination_id = db.Column(db.Integer,db.ForeignKey('destinations.id'))
+    
 
 class Comment(db.Model):
     __table.name__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(400))
+    text = db.Column(db.String(500))
     created_at = db.Column(db.DateTime, default=datetime.now())
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     destination_id = db.Column(db.Integer, db.ForeignKey('destinations.id'))
