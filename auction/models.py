@@ -15,7 +15,7 @@ class Destination(db.Mobel):
     sportdate = db.Column(db.Date)
     sporttime = db.Column(db.String(20))
     playername = db.Column(db.String(100))
-    description = db.Column(db.String(300))
+    description = db.Column(db.String(400))
     totalticket = db.Column(db.Integer)
 def __repr__(self): #string print method
 return "<Name: {}>".format(self.name)
