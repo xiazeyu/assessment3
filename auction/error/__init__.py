@@ -6,10 +6,10 @@ bp = Blueprint('error', __name__, url_prefix='/error')
 # /error - internal server errors
 @bp.route('/')
 def error():
-  pass
+  return 'error'
 
 
 # /error/404 - page not found
 @bp.route('/404')
 def error_404():
-  pass
+  return 'error_404'
