@@ -7,9 +7,10 @@ bp = Blueprint('error', __name__, url_prefix='/error')
 @bp.route('/')
 def error():
   return render_template('error/error.html')
+  
 
 
 # /error/404 - page not found
-@bp.route('/404')
-def error_404():
-  return render_template('error/404.html')
+@bp.route(404)
+def error_404(e): #error view function
+  return render_template('error/404.html'),404
