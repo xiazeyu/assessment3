@@ -17,7 +17,7 @@ class Destination(db.Model):
     date = db.Column(db.Date)
     time = db.Column(db.Time)
     artist = db.Column(db.String(100))
-    description = db.Column(db.String(400))
+    description = db.Column(db.String(300))
     ticketcount = db.Column(db.Integer)
     # relation to call destination.comments and comment.destination
     comments = db.relationship('Comment', backref='destination')
