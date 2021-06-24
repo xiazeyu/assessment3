@@ -12,18 +12,18 @@ bp = Blueprint('content', __name__)
 #   information including event status
 # /?category=<str> - landing page with specific category
 def list_items():
-    pass
+    return 'list_items'
 
 
 @bp.route('/details')
 # /details?event_id=<int> - detail page of the event
 #   image description date other
 def details():
-    pass
+    return 'details'
 
 
 @bp.route('/new_comment')
 # /new_comment?event_id=<int> - new comment event handler
 #   author review date
 def new_comment():
-    pass
+    return 'new_comment'
