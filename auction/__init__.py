@@ -19,7 +19,7 @@ def create_app():
     db.init_app(app)
 
     bootstrap = Bootstrap(app)
-    
+     
     #initialize the login manager
     login_manager = LoginManager()
     
