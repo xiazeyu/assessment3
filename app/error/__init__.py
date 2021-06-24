@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint,render_template
 
 bp = Blueprint('error', __name__, url_prefix='/error')
 
@@ -6,10 +6,10 @@ bp = Blueprint('error', __name__, url_prefix='/error')
 # /error - internal server errors
 @bp.route('/')
 def error():
-  return 'error'
+  return render_template('error/error.html')
 
 
 # /error/404 - page not found
 @bp.route('/404')
 def error_404():
-  return 'error_404'
+  return render_template('error/404.html')
