@@ -7,6 +7,8 @@ class User(db.Model):
     password_hash = db.Column(db.String(255), nullable=False)
     # relation to call user.comments and comment.user
     comments = db.relationship('Comment', backref='user')
+def __repr__(self): #string print method
+    return "<Name: {}, ID: {}>".format(self.name, self.id)  
 
 class Destination(db.Model):
     __table.name__= 'destinations' 
