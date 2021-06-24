@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from .forms import LoginForm, RegisterForm
 from ..models import User
 from flask_login import login_user, login_required, logout_user
-
+from .. import db
 bp = Blueprint('user', __name__, url_prefix='/user')
 
 
@@ -28,21 +28,37 @@ def login():  # view function
             # this gives the url from where the login page was accessed
             nextp = request.args.get('next')
             print(nextp)
-            #if next is None or not nextp.startswith('/'):
+            # if next is None or not nextp.startswith('/'):
             return redirect(url_for('main.content.list_items'))
-            #return redirect(nextp)
+            # return redirect(nextp)
         else:
             flash(error)
     return render_template('user/login.html', form=login_form)
 
 
-@bp.route('/register')
-# name, email-id, password, contact number, and address
-#   as customer or as admin
+@bp.route('/register', methods=['GET', 'POST'])
 def register():
-    return render_template('user/register.html')
+    form = RegisterForm()
+    if form.validate_on_submit():
+        print('Register form submitted')
+
+        # get username, password and email from the form
+        uname = form.username.data
+        pwd = form.password.data
+        email = form.email.data
+
+        # create password hash
+        pwd_hash = generate_password_hash(pwd)
+
+        # create a new user model object
+        new_user = User(name=uname, password_hash=pwd_hash, emailid=email)
+        db.session.add(new_user)
+        db.session.commit()
+        # commit to the database and redirect to HTML page
+        return redirect(url_for('auth.register'))
 
 
 @bp.route('/logout')
 def logout():
-    return render_template('user/login.html')
+    logout_user()
+    return 'Successfully logged out user'

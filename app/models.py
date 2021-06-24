@@ -10,6 +10,7 @@ class User(db.Model, UserMixin):
                          unique=True, nullable=False)
     emailid = db.Column(db.String(128), index=False, nullable=False)
     phonenumber = db.Column(db.String(128), index=False, nullable=False)
+    address = db.Column(db.String(128), nullable=True)
     password_hash = db.Column(db.String(128), nullable=False)
     # relation to call user.comments and comment.user
     comments = db.relationship('Comment', backref='user')
