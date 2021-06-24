@@ -1,4 +1,4 @@
-from flask import Blueprint,render_template
+from flask import Blueprint,render_template,request,redirect
 
 bp = Blueprint('user', __name__, url_prefix='/user')
 
