@@ -18,4 +18,5 @@ def register():
 
 @bp.route('/logout')
 def logout():
-    return render_template('user/login.html')
+   logout_user()
+   return 'Successfully logged out user'
