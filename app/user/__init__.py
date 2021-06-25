@@ -38,7 +38,6 @@ def login():  # view function
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
-<<<<<<< HEAD
     username = request.args.get('username', None)
     password = request.args.get('password', None)
     email_id = request.args.get('email_id',None)
@@ -46,7 +45,7 @@ def register():
     address = request.args.get('address', None)
     
     return render_template('user/register.html')
-=======
+
     form = RegisterForm()
     if form.validate_on_submit():
         print('Register form submitted')
@@ -66,7 +65,7 @@ def register():
         # commit to the database and redirect to HTML page
         return redirect(url_for('auth.register'))
 
->>>>>>> 61e6dc57f7c12147c4554984ded74bb526af2838
+
 
 @bp.route('/logout')
 def logout():
