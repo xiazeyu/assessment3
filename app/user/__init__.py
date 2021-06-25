@@ -23,10 +23,15 @@ def login():
 # name, email-id, password, contact number, and address
 #   as customer or as admin
 def register():
-   return render_template('user/register.html')
-
+    username = request.args.get('username', None)
+    password = request.args.get('password', None)
+    email_id = request.args.get('email_id',None)
+    contact_number = request.args.get('contact_number', None)
+    address = request.args.get('address', None)
+    
+    return render_template('user/register.html')
 
 @bp.route('/logout')
 def logout():
-   logout_user()
-   return 'Successfully logged out user'
+    logout_user()
+    return 'Successfully logged out user'
