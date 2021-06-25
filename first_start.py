@@ -1,4 +1,5 @@
-from app.models import Event, User
+from typing import Text
+from app.models import Booking, Comment, Event, User
 from app import db
 from app import create_app
 
@@ -55,4 +56,24 @@ db.session.add(event4)
 
 event5 = Event(id='5',name='event5',type='type1',venue='square2',datetime='',price='900',artist='artist5',
 description='Special comcert',ticketcount='5000',status='active',creador_id= user2.id)
-db.session.add(event4)
+db.session.add(event5)
+
+#create booking
+booking1 = Booking(datetime='',quantity='9',price='700',payment='6300',user_id=user3.id,event_id=event4.id)
+db.session.add(booking1)
+
+booking2 = Booking(datetime='',quantity='3',price='300',payment='900',user_id=user4.id,event_id=event3.id)
+db.session.add(booking2)
+
+booking3 = Booking(datetime='',quantity='5',price='400',payment='2000',user_id=user5.id,event_id=event2.id)
+db.session.add(booking2)
+
+#create comment
+comment1=Comment(text='Good',creator_id=user3.id)
+db.session.add(comment1)
+
+comment2=Comment(text='Perfect!',creator_id=user4.id)
+db.session.add(comment2)
+
+comment3=Comment(text='Excellent!',creator_id=user5.id)
+db.session.add(comment3)
