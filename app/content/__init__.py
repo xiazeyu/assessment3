@@ -1,9 +1,12 @@
 from flask import Blueprint,render_template
+from flask_login import login_required
+from .. import db
 
-bp = Blueprint('content', __name__)
+bp = Blueprint('content', __name__, url_prefix='/content')
 
 
-@bp.route('/', methods=['GET', 'POST'])
+@bp.route('/')
+@login_required
 # / - landing page
 #   clearly conveys what kind of events the website promotes
 #   some upcoming events
@@ -15,14 +18,16 @@ def list_items():
      return render_template ('content/list_items.html')
 
 
-@bp.route('/details', methods=['GET', 'POST'])
+@bp.route('/details')
+@login_required
 # /details?event_id=<int> - detail page of the event
 #   image description date other
 def details():
      return render_template ('content/detials.html')
 
 
-@bp.route('/new_comment', methods=['GET', 'POST'])
+@bp.route('/new_comment')
+@login_required
 # /new_comment?event_id=<int> - new comment event handler
 #   author review date
 def new_comment():
