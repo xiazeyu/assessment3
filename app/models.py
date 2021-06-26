@@ -46,7 +46,7 @@ class Booking(db.Model):
     __tablename__ = 'bookings'
     id = db.Column(db.Integer, primary_key=True)
     datetime = db.Column(db.DateTime)
-    qunantity = db.Column(db.Integer)
+    quantity = db.Column(db.Integer)
     price = db.Column(db.Integer)
     payment = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
