@@ -22,15 +22,11 @@ header %} {% endblock %} {% block content %}
   </div>
 </div>
 
-<div class="container-fluid">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="page-header">
-        <h4>{{heading}}</h4>
-      </div>
-      {{ wtf.quick_form(form) }}
-    </div>
+<section class="py-5 text-center container">
+  <div class="col-lg-6 col-md-8 mx-auto">
+    <h1 class="fw-light">{{ heading }}</h1>
+    {{ wtf.quick_form(form) }}
   </div>
-</div>
+</section>
 
 {% endblock %}
