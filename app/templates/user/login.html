@@ -1,15 +1,45 @@
-{% extends "base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
-{% block header %}
-<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-  <li class="nav-item">
-    <a class="nav-link" aria-current="page" href="/">Home</a>
-  </li>
-</ul>
-{% endblock %} {% block content %}
+{% extends "base.html" %} {% import "bootstrap/wtf.html" as wtf %} {% block
+header %} {% endblock %} {% block content %}
 
-<div class="col-md-6">
-  {{ wtf.quick_form(form) }}
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      {% with messages = get_flashed_messages() %} {% if messages %} {% for
+      message in get_flashed_messages() %}
+
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{message}}
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      {% endfor %} {% endif %} {% endwith %}
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="page-header">
+        <h4>{{heading}}</h4>
+      </div>
+      {{ wtf.quick_form(form) }}
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <p>
+        New user?
+        <a href="{{ url_for('main.user.register') }}">Click here to register</a
+        >.
+      </p>
+    </div>
+  </div>
 </div>
 
 {% endblock %}
