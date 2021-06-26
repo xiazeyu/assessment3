@@ -13,7 +13,7 @@
 {% endblock %} {% block content %}
 <div class="container col-xxl-8 px-4 py-5">
   <h2 class="text-center">{{ title }}</h2>
-  <form class="row" action="POST">
+  <form class="row" action="{{ url }}" method="POST">
     <div class="col-4 mb-3">
       <label for="name" class="form-label">Event Name</label>
       <input
@@ -92,7 +92,7 @@
         name="venue"
         id="venue"
         placeholder="Venue"
-        value="{{ e.Venue }}"
+        value="{{ e.venue }}"
         required
       />
     </div>
@@ -101,8 +101,12 @@
       <textarea  name="description" class="form-control" id="description" rows="3">{{ e.description }}</textarea>
     </div>
     <div class="col-6 mb-3">
-      <label for="datetime" class="form-label">DateTime</label>
-      <input value="{{ e.datetime }}" name="datetime" type="datetime" class="form-control" id="datetime" required />
+      <label for="date" class="form-label">Date</label>
+      <input value="{{ date }}" name="date" type="date" class="form-control" id="date" required />
+    </div>
+    <div class="col-6 mb-3">
+      <label for="time" class="form-label">Time</label>
+      <input value="{{ time }}" name="time" type="time" class="form-control" id="time" required />
     </div>
     <div class="col-6 mb-3">
       <label for="status" class="form-label">Status</label>
