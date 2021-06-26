@@ -1,27 +1,14 @@
-{% extends "base.html" %} {% block header %}
-<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-  <li class="nav-item">
-    <a class="nav-link" aria-current="page" href="/">Home</a>
-  </li>
-  <li class="nav-item dropdown">
-    <a
-      class="nav-link dropdown-toggle active"
-      id="navbarDropdown"
-      role="button"
-      data-bs-toggle="dropdown"
-      aria-expanded="false"
-    >
-      Music Events Management
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/order/booking_history">Booking History</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/logout">Logout</a>
-  </li>
-</ul>
-
+{% extends "base.html" %}{% block header %}
+<li class="nav-item">
+  <a class="nav-link" href="{{ url_for('main.content.list_items') }}"
+    >Home</a
+  >
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{{ url_for('main.order.booking_history') }}"
+    >Booking History</a
+  >
+</li>
 {% endblock %} {% block content %}
 Result
 {% endblock %}

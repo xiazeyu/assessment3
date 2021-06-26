@@ -11,7 +11,6 @@ bp.register_blueprint(order.bp)
 bp.register_blueprint(user.bp)
 
 
-@bp.app_errorhandler(Exception)
+@bp.app_errorhandler(HTTPException)
 def error(e):
-    response = e.get_response()
     return render_template('error/error.html', code=e.code, name=e.name, description=e.description)

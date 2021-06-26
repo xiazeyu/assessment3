@@ -19,11 +19,11 @@ def list_items():
 # /details?event_id=<int> - detail page of the event
 #   image description date other
 def details():
-     return render_template ('content/detials.html')
+     return render_template ('content/details.html')
 
 
 @bp.route('/new_comment')
 # /new_comment?event_id=<int> - new comment event handler
 #   author review date
 def new_comment():
-     return render_template ('content/detials.html')
+    return render_template('content/details.html')

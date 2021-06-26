@@ -1,4 +1,10 @@
-{% extends "base.html" %} {% block header %} {% endblock %}
+{% extends "base.html" %}{% block header %}
+<li class="nav-item">
+  <a class="nav-link active" href="{{ url_for('main.content.list_items') }}"
+    >Home</a
+  >
+</li>
+{% endblock %}
 {% block content %}
 
 <section class="py-5 text-center container">
