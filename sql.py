@@ -12,7 +12,7 @@ db.create_all()
 
 # create events  （may have some mistakes）
 event1 = Event(id='1',name='event1',type='type1',venue='square1',datetime='2021-7-1',price='500',artist='artist1',
-description='An interesting concert',ticketcount='7000',status='active')
+description='a',ticketcount='7000',status='active')
 db.session.add(event1)
 
 event2 = Event(id='2',name='event2',type='type2',venue='square2',datetime='2021-7-7',price='400',artist='artist2',
@@ -26,7 +26,7 @@ db.session.add(event3)
 event4 = Event(id='4',name='event4',type='type2',venue='square4',datetime='2021-7-5',price='700',artist='artist4',
 description='Classical comcert',ticketcount='5000',status='active')
 db.session.add(event4)
-
+s
 event5 = Event(id='5',name='event5',type='type1',venue='square2',datetime='2021-7-4',price='900',artist='artist5',
 description='Special comcert',ticketcount='5000',status='active')
 db.session.add(event5)
@@ -49,7 +49,7 @@ db.session.commit()
 db.session.close()
 
 #create comment
-comment1=Comment(text='Good',creator_id=user3.id,event_id=event1.id)
+comment1=Commdaent(text='Good',creator_id=user3.id,event_id=event1.id)
 db.session.add(comment1)
 
 comment2=Comment(text='Perfect!',creator_id=user4.id,event_id=event1.id)
@@ -63,18 +63,23 @@ db.session.close()
 
 
 # delete event
-delete from app.models import Booking, Event
+#delete uses id from 1-3
+ users = self.db.query(User).filter(User.id.in_(1,2,3)).all()
+        [self.db.delete(u) for u in users]
+        self.db.commit()
 
-# list_items by type
-Event.query.filter_by(type='active').all
-Event.query.filter_by(type='inactive').all
-Event.query.filter_by(type='upcoming').all
+#delete the first Event
+ event = session.query(Event).first()
+    session.delete(event)
+    session.db.commit()
+
+# list_items event by type
+Event.query.filter_by(type='classical').all
+Event.query.filter_by(type='pop').all
+Event.query.filter_by(type='vocal').all
 
 # Order by a field
 Event.query.order_by(Event.creator_id).all()
-
-# Update  comment
-
 
 @bp.roure('/<id>/comment', methods=['GET', 'POST'])
 def comment(id):
@@ -91,12 +96,18 @@ def comment(id):
 
 
 # get comment by event_id
-Event.query.filter_by(event.id).all
+person = session.query(event).get(comment)
 
-# remain tickets (unfinished)
-ticket_count = Event.query(ticketcount).filter_by(id=1)
-select sum(quantity) as sumvalue from Booking where 'event_id' = '1'
+#update the price of event 1
+event = session.query(Event).first()
+person.price = '600'
+session.db.commit()
 
+# remain tickets 
+    #add the number of booked tickets of event4
+booked_tickets = db.session.query(func.sum(quanity)).filter(event.id==4).scalar()
+ticket_count = Event.query.filter_by(event.id=='4')
+remain_tickets= list(set(ticket_count) - set(booked_tickets)) 
 
 # booking_history by user_id
 Booking.query.filter_by(user_id='1').all
