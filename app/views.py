@@ -1,6 +1,6 @@
 from werkzeug.exceptions import HTTPException
 from . import admin, content, order, user
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect, url_for
 
 bp = Blueprint('main', __name__)
 
@@ -14,3 +14,8 @@ bp.register_blueprint(user.bp)
 @bp.app_errorhandler(HTTPException)
 def error(e):
     return render_template('error/error.html', code=e.code, name=e.name, description=e.description)
+
+
+@bp.route('/')
+def index():
+  return redirect(url_for('main.content.list_items'))
