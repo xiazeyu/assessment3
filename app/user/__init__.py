@@ -24,6 +24,7 @@ def login():
         if error is None:
             login_user(u1)
             next = request.args.get('next')
+            flash('Log in successfully.')
             return redirect(next or url_for('main.content.list_items'))
         else:
             flash(error)
@@ -55,6 +56,7 @@ def register():
                             )
             db.session.add(new_user)
             db.session.commit()
+            flash('Register successfully.')
             return redirect(url_for('main.user.login'))
         else:
             flash(error)
@@ -66,4 +68,5 @@ def register():
 @login_required
 def logout():
     logout_user()
+    flash('Log out successfully.')
     return redirect(url_for('main.content.list_items'))
