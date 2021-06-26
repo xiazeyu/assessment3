@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from flask import redirect, url_for, request
 from .. import db
 from ..models import Event
+from datetime import datetime, date, time
 
 bp = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -13,11 +14,15 @@ def create_event():
     if current_user.role != 'administrator':
         return redirect(url_for('main.content.list_items'))
     if request.method == 'POST':
+        print(request.form['date'], request.form['time'])
         new_event = Event(
             name=request.form['name'],
             type=request.form['type'],
             venue=request.form['venue'],
-            datetime=request.form['datetime'],
+            datetime=datetime.combine(
+                datetime.strptime(request.form['date'], "%Y-%m-%d").date(),
+                datetime.strptime(request.form['time'], "%H:%M").time(),
+            ),
             price=request.form['price'],
             artist=request.form['artist'],
             description=request.form['description'],
@@ -29,7 +34,7 @@ def create_event():
         db.session.commit()
         flash('New event added successfully.')
         return redirect(url_for('main.admin.create_event'))
-    return render_template('admin/event_editor.html', e={}, title="Create new event")
+    return render_template('admin/event_editor.html', url=url_for('main.admin.create_event'), date="", time="", e={}, title="Create new event")
 
 
 @bp.route('/update_event', methods=['POST', 'GET'])
@@ -44,7 +49,10 @@ def update_event():
             name=request.form['name'],
             type=request.form['type'],
             venue=request.form['venue'],
-            datetime=request.form['datetime'],
+            datetime=datetime.combine(
+                datetime.strptime(request.form['date'], "%Y-%m-%d").date(),
+                datetime.strptime(request.form['time'], "%H:%M").time(),
+            ),
             price=request.form['price'],
             artist=request.form['artist'],
             description=request.form['description'],
@@ -55,7 +63,12 @@ def update_event():
         # TODO
         flash(f'#{event_id} updated successfully.')
         return redirect(url_for('main.admin.update_event', event_id=event_id))
-    render_template('admin/event_editor.html', e=e1, title="Update the event")
+    return render_template('admin/event_editor.html',
+                           url=url_for('main.admin.update_event',
+                                       event_id=event_id),
+                           date=e1.datetime.date().strftime("%Y-%m-%d"),
+                           time=e1.datetime.time().strftime("%H:%M"), e=e1,
+                           title="Update the event")
 
 
 @bp.route('/delete_event')
