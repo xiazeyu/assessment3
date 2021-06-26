@@ -7,10 +7,11 @@ bp = Blueprint('order', __name__, url_prefix='/order')
 #   provide quantity
 #   Booked out cannot be placed if exceeds the tickets available
 def book():
-    return render_template('order/book_result.html')
+    
+    flash('booking successfuly.')
+    return redirect(url_for('main.content.list_items'))
 
 
 @bp.route('/booking_history')
 def booking_history():
-    flash('booking successfuly.')
-    return redirect(url_for('main.content.list_items'))
+    return render_template('order/booking_history.html')
