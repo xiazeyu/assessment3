@@ -67,7 +67,32 @@
       </div>
     </header>
 
-    <main>{% block content %} {% endblock %}</main>
+    <main>
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            {% with messages = get_flashed_messages() %} {% if messages %} {%
+            for message in get_flashed_messages() %}
+
+            <div
+              class="alert alert-warning alert-dismissible fade show"
+              role="alert"
+            >
+              {{message}}
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            {% endfor %} {% endif %} {% endwith %}
+          </div>
+        </div>
+      </div>
+      {% block content %} {% endblock %}
+    </main>
     <footer class="footer">
       <div class="container text-center">
         <p>Copyright &copy; Team TA</p>
