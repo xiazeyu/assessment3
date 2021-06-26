@@ -7,27 +7,9 @@
   </li>
 </ul>
 {% endblock %} {% block content %}
-<div class="container-fluid">
-  {% with messages = get_flashed_messages() %}
-  {% if messages %}
-  {% for message in get_flashed_messages() %}
-  <div class="alert alert-warning">
-    <button type="button" class="close" data-dismiss="alert" aria-label="close">x</button>
-    {{message}}
-  </div>
-  {% endfor %}
-  {% endif %}
-  {% endwith %}
 
+<div class="col-md-6">
+  {{ wtf.quick_form(form) }}
 </div>
 
-<div class="container-fluid">
-  {{wtf.quick_form(form)}}
-</div>
-
-{% if heading|lower =='login' %}
-<div class="container-fluid">
-  <p>New user? <a href="{ url_for('user/register') }">Click here to register</a>.</p>
-</div>
-{% endif %}
 {% endblock %}
