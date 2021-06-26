@@ -5,6 +5,7 @@ from .. import db
 bp = Blueprint('content', __name__, url_prefix='/content')
 
 
+@bp.route('/')
 @bp.route('/list_items')
 @login_required
 # / - landing page
