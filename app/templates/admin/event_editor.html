@@ -13,7 +13,7 @@
 {% endblock %} {% block content %}
 <div class="container col-xxl-8 px-4 py-5">
   <h2 class="text-center">{{ title }}</h2>
-  <form class="row" action="{{ url }}" method="POST">
+  <form class="row" action="{{ url }}" enctype='multipart/form-data' method="POST">
     <div class="col-4 mb-3">
       <label for="name" class="form-label">Event Name</label>
       <input
@@ -82,7 +82,7 @@
     </div>
     <div class="col-6 mb-3">
       <label for="image" class="form-label">Upload image</label>
-      <input class="form-control" type="file" id="image" />
+      <input name="file" class="form-control" type="file" id="image" />
     </div>
     <div class="col-6 mb-3">
       <label for="venue" class="form-label">Venue</label>

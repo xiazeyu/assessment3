@@ -4,6 +4,8 @@ from flask import redirect, url_for, request
 from .. import db
 from ..models import Event
 from datetime import datetime, date, time
+import os
+from werkzeug.utils import secure_filename
 
 bp = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -34,8 +36,15 @@ def create_event():
         )
         db.session.add(new_event)
         db.session.commit()
+        event_id = new_event.id
+        img_file = request.files['file']
+        filename = event_id
+        BASE_PATH = os.path.dirname(__file__)
+        upload_path = os.path.join(
+            BASE_PATH, '../static', secure_filename(filename))
+        img_file.save(upload_path)
         flash(f'New event added successfully. id: #{new_event.id}')
-        return redirect(url_for('main.admin.create_event'))
+        return redirect(url_for('main.content.details', event_id=event_id))
     return render_template('admin/event_editor.html', url=url_for('main.admin.create_event'), date="", time="", e={}, title="Create new event")
 
 
@@ -69,6 +78,12 @@ def update_event():
         e1.status = request.form['status']
         e1.creator_id = current_user.id
         db.session.commit()
+        img_file = request.files['file']
+        filename = event_id
+        BASE_PATH = os.path.dirname(__file__)
+        upload_path = os.path.join(
+            BASE_PATH, '../static', secure_filename(filename))
+        img_file.save(upload_path)
         flash(f'#{event_id} updated successfully.')
         return redirect(url_for('main.admin.update_event', event_id=event_id))
     return render_template('admin/event_editor.html',
