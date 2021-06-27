@@ -80,15 +80,15 @@ db.session.add(event5)
 
 # create booking
 booking1 = Booking(datetime=pt('1990-12-21 02:32'), quantity='9', price='700',
-                   payment='6300', user_id=a.id, event_id=event4.id)
+                   payment='cash', user_id=a.id, event_id=event4.id)
 db.session.add(booking1)
 
 booking2 = Booking(datetime=pt('2021-12-05 08:32'), quantity='3', price='300',
-                   payment='900', user_id=a.id, event_id=event3.id)
+                   payment='paypal', user_id=a.id, event_id=event3.id)
 db.session.add(booking2)
 
 booking3 = Booking(datetime=pt('2021-07-04 13:32'), quantity='5', price='400',
-                   payment='2000', user_id=user5.id, event_id=event2.id)
+                   payment='alipay', user_id=user5.id, event_id=event2.id)
 db.session.add(booking2)
 
 # create comment

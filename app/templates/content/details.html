@@ -75,7 +75,7 @@
       <form
         class="p-4 p-md-5 border rounded-3 bg-light"
         action="{{ url_for('main.order.book', event_id=event_id) }}"
-        method="GET"
+        method="POST"
       >
         <h4 class="mb-3">Order Now</h4>
         <div
@@ -140,6 +140,7 @@
             <input
               id="cash"
               name="payment"
+              value="cash"
               type="radio"
               class="form-check-input"
               checked
@@ -151,6 +152,7 @@
             <input
               id="paypal"
               name="payment"
+              value="paypal"
               type="radio"
               class="form-check-input"
               required
@@ -161,6 +163,7 @@
             <input
               id="alipay"
               name="payment"
+              value="alipay"
               type="radio"
               class="form-check-input"
               required
@@ -171,13 +174,12 @@
 
         <hr class="my-4" />
 
-        <a
+        <button
           class="w-100 btn btn-lg btn-primary"
           type="submit"
-          href="{{ url_for('main.content.list_items') }}"
         >
           BOOK NOW!
-        </a>
+        </button>
         <hr class="my-4" />
 
         <small class="text-muted"
