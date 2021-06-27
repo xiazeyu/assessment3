@@ -35,31 +35,31 @@
     </div>
   </div>
 </section>
-{{events}}
 <div class="py-5 bg-light">
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      {% for item in events %}
       <div class="col">
         <div class="card shadow-sm">
           <img
             class="card-img-top"
             width="100%"
             height="225"
-            src="imgs/v1.webp"
+            src="{{ url_for('static', filename=item.id) }}"
           />
           <div class="card-body">
             <p class="card-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-              massa mauris, laoreet ac egestas ut, vehicula ut elit. Donec sit.
+              {{ item.description }}
             </p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
-                <a href="{{ url_for('main.content.details') }}">
-                  <button class="btn btn-sm btn-outline-secondary">
+                <a href="{{ url_for('main.content.details', event_id=item.id) }}">
+                  <button class="btn btn-sm btn-outline-primary">
                     Tell me more
                   </button>
                 </a>
-                <a href="{{ url_for('main.admin.update_event') }}">
+                {% if current_user.role == 'administrator' %}
+                <a href="{{ url_for('main.admin.update_event', event_id=item.id) }}">
                   <button
                     type="button"
                     class="btn btn-sm btn-outline-secondary"
@@ -67,13 +67,25 @@
                     Edit
                   </button>
                 </a>
+                {% endif %}
+                {% if current_user.role == 'administrator' %}
+                <a href="{{ url_for('main.admin.delete_event', event_id=item.id) }}">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                  >
+                    Delete
+                  </button>
+                </a>
+                {% endif %}
               </div>
             </div>
-            <small class="text-muted">40$, Shanghai</small>
-            <small>Cancelled</small>
+            <small class="text-muted">{{ item.price }}$, {{ item.venue }}</small>
+            <small>{{ item.status }}</small>
           </div>
         </div>
       </div>
+      {% endfor %}
     </div>
   </div>
 </div>
