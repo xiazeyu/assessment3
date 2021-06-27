@@ -11,51 +11,52 @@ ctx.push()
 db.create_all()
 
 # create events  （may have some mistakes）
-event1 = Event(id='1',name='event1',type='type1',venue='square1',datetime='2021-7-1',price='500',artist='artist1',
-description='a',ticketcount='7000',status='active')
+event1 = Event(id='1',name='event1',type='classical',venue='square1',datetime='2021-07-04 13:32:00.000000',price='500',artist='artist1',
+description='a',ticketcount='7000',status='active',creator_id='233')
 db.session.add(event1)
 
-event2 = Event(id='2',name='event2',type='type2',venue='square2',datetime='2021-7-7',price='400',artist='artist2',
-description='Forest Concert',ticketcount='8000',status='inactive')
+event2 = Event(id='2',name='event2',type='pop',venue='square2',datetime='2021-04-01 15:32:00.000000',price='400',artist='artist2',
+description='Forest Concert',ticketcount='8000',status='inactive',creator_id='2')
 db.session.add(event2)
 
-event3 = Event(id='3',name='event3',type='type3',venue='square3',datetime='2021-6-30',price='300',artist='artist3',
-description='Strawberry Music Festival',ticketcount='10000',status='upcoming')
+event3 = Event(id='3',name='event3',type='classical',venue='square3',datetime='2021-04-01 15:32:00.000000',price='300',artist='artist3',
+description='Strawberry Music Festival',ticketcount='10000',status='upcoming',creator_id='1')
 db.session.add(event3)
 
-event4 = Event(id='4',name='event4',type='type2',venue='square4',datetime='2021-7-5',price='700',artist='artist4',
-description='Classical comcert',ticketcount='5000',status='active')
+event4 = Event(id='4',name='event4',type='pop',venue='square4',datetime='2021-01-11 11:32:00.000000',price='700',artist='artist4',
+description='Classical comcert',ticketcount='5000',status='active',creator_id='2')
 db.session.add(event4)
 s
-event5 = Event(id='5',name='event5',type='type1',venue='square2',datetime='2021-7-4',price='900',artist='artist5',
-description='Special comcert',ticketcount='5000',status='active')
+event5 = Event(id='5',name='event5',type='vocal',venue='square2',datetime='2020-12-21 02:32:00.000000',price='900',artist='artist5',
+description='Special comcert',ticketcount='5000',status='active',creator_id='2')
 db.session.add(event5)
 
 db.session.commit()
 db.session.close()
 
 #create booking
-booking1 = Booking(datetime='',quantity='9',price='700',payment='6300',user_id=user3.id,event_id=event4.id)
+booking1 = Booking(datetime='2020-6-25 02:32:00.000000',quantity='9',price='700',payment='6300',user_id='3',event_id='4')
 db.session.add(booking1)
 
-booking2 = Booking(datetime='',quantity='3',price='300',payment='900',user_id=user4.id,event_id=event3.id)
+booking2 = Booking(datetime='2021-06-05 08:32:00.000000',quantity='3',price='300',payment='900',user_id='4',event_id='3')
 db.session.add(booking2)
 
-booking3 = Booking(datetime='',quantity='5',price='400',payment='2000',user_id=user5.id,event_id=event2.id)
-db.session.add(booking2)
+
+
+
 
 
 db.session.commit()
 db.session.close()
 
 #create comment
-comment1=Commdaent(text='Good',creator_id=user3.id,event_id=event1.id)
+comment1=Commdaent(text='Good',creat_at='2021-7-20 02:32:00.000000',creator_id='3',event_id='1')
 db.session.add(comment1)
 
-comment2=Comment(text='Perfect!',creator_id=user4.id,event_id=event1.id)
+comment2=Comment(text='Perfect!',creat_at='2021-7-1 02:32:00.000000',creator_id='4',event_id='1')
 db.session.add(comment2)
 
-comment3=Comment(text='Excellent!',creator_id=user5.id,event_id=event2.id)
+comment3=Comment(text='Excellent!',creat_at='2020-12-21 02:32:00.000000',creator_id='5',event_id='2')
 db.session.add(comment3)
 
 db.session.commit()
