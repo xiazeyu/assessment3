@@ -104,11 +104,11 @@ event = session.query(Event).first()
 person.price = '600'
 session.db.commit()
 
-# remain tickets 
+# remain tickets
     #add the number of booked tickets of event4
 booked_tickets = db.session.query(func.sum(quanity)).filter(event.id==4).scalar()
 ticket_count = Event.query.filter_by(event.id=='4')
-remain_tickets= list(set(ticket_count) - set(booked_tickets)) 
+remain_tickets= list(set(ticket_count) - set(booked_tickets))
 
 # booking_history by user_id
 Booking.query.filter_by(user_id='1').all

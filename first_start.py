@@ -65,6 +65,19 @@ event5 = Event(id='5', name='event5', type='vocal', venue='square2', datetime=pt
                description='Special comcert', ticketcount='5000', status='active', creator_id=user2.id)
 db.session.add(event5)
 
+event5 = Event(id='6', name='event6', type='vocal', venue='square2', datetime=pt('1990-12-21 02:32'), price='900', artist='artist5',
+               description='Special comcert', ticketcount='5000', status='upcoming', creator_id=user2.id)
+db.session.add(event5)
+
+event5 = Event(id='7', name='event7', type='vocal', venue='square2', datetime=pt('1990-12-21 02:32'), price='900', artist='artist5',
+               description='Special comcert', ticketcount='5000', status='active', creator_id=user2.id)
+db.session.add(event5)
+
+event5 = Event(id='8', name='event8', type='vocal', venue='square2', datetime=pt('1990-12-21 02:32'), price='900', artist='artist5',
+               description='Special comcert', ticketcount='5000', status='cancelled', creator_id=user2.id)
+db.session.add(event5)
+
+
 # create booking
 booking1 = Booking(datetime=pt('1990-12-21 02:32'), quantity='9', price='700',
                    payment='6300', user_id=a.id, event_id=event4.id)

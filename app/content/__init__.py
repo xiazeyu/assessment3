@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request
+from ..models import Booking, Comment, Event, User
 from flask_login import login_required
 from .. import db
 
@@ -14,11 +15,11 @@ bp = Blueprint('content', __name__, url_prefix='/content')
 # /?category=<str> - landing page with specific category
 def list_items():
     type = request.args.get('type') or 'vocal'
-    return render_template('content/list_items.html', type=type)
+    events = Event.query.filter_by(type=type).all()
+    return render_template('content/list_items.html', type=type, events=events)
 
 
 @bp.route('/details')
-@login_required
 # /details?event_id=<int> - detail page of the event
 #   image description date other
 def details():
