@@ -18,4 +18,4 @@ def error(e):
 
 @bp.route('/')
 def index():
-  return redirect(url_for('main.content.list_items'))
+    return redirect(url_for('main.content.list_items'))

@@ -20,7 +20,7 @@ def details():
     event_id = request.args.get('event_id')
     event = Event.query.filter_by(id=event_id).first()
     booked_tickets = db.session.query(
-        func.sum(Booking.quantity)).filter(event_id==event_id).scalar()
+        func.sum(Booking.quantity).filter(Booking.event_id == event_id)).scalar() or 0
     remain_tickets = event.ticketcount - booked_tickets
     comments = Comment.query.filter_by(
         event_id=event_id).all()

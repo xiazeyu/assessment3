@@ -17,8 +17,11 @@ def create_event():
         return redirect(url_for('main.content.list_items'))
     if request.method == 'POST':
         if(request.form['status'] == "Status"):
-          flash('You need to provide a status!')
-          return render_template('admin/event_editor.html', url=url_for('main.admin.create_event'), date="", time="", e={}, title="Create new event")
+            flash('You need to provide a status!')
+            return render_template('admin/event_editor.html', url=url_for('main.admin.create_event'), date="", time="", e={}, title="Create new event")
+        if request.files['file'].content_length != 0:
+            flash('You must provide an image when creating an event!')
+            return render_template('admin/event_editor.html', url=url_for('main.admin.create_event'), date="", time="", e={}, title="Create new event")
         new_event = Event(
             name=request.form['name'],
             type=request.form['type'],
@@ -57,13 +60,13 @@ def update_event():
     e1 = Event.query.filter_by(id=event_id).first()
     if request.method == 'POST':
         if(request.form['status'] == "Status"):
-          flash('You need to provide a status!')
-          return render_template('admin/event_editor.html',
-                                 url=url_for('main.admin.update_event',
-                                             event_id=event_id),
-                                 date=e1.datetime.date().strftime("%Y-%m-%d"),
-                                 time=e1.datetime.time().strftime("%H:%M"), e=e1,
-                                 title="Update the event")
+            flash('You need to provide a status!')
+            return render_template('admin/event_editor.html',
+                                   url=url_for('main.admin.update_event',
+                                               event_id=event_id),
+                                   date=e1.datetime.date().strftime("%Y-%m-%d"),
+                                   time=e1.datetime.time().strftime("%H:%M"), e=e1,
+                                   title="Update the event")
         e1.name = request.form['name']
         e1.type = request.form['type']
         e1.venue = request.form['venue']
@@ -78,12 +81,14 @@ def update_event():
         e1.status = request.form['status']
         e1.creator_id = current_user.id
         db.session.commit()
-        img_file = request.files['file']
-        filename = str(event_id)
-        BASE_PATH = os.path.dirname(__file__)
-        upload_path = os.path.join(
-            BASE_PATH, '../static', secure_filename(filename))
-        img_file.save(upload_path)
+        if request.files['file'].content_length != 0:
+            print(request.files['file'])
+            img_file = request.files['file']
+            filename = str(event_id)
+            BASE_PATH = os.path.dirname(__file__)
+            upload_path = os.path.join(
+                BASE_PATH, '../static', secure_filename(filename))
+            img_file.save(upload_path)
         flash(f'#{event_id} updated successfully.')
         return redirect(url_for('main.admin.update_event', event_id=event_id))
     return render_template('admin/event_editor.html',
@@ -91,7 +96,9 @@ def update_event():
                                        event_id=event_id),
                            date=e1.datetime.date().strftime("%Y-%m-%d"),
                            time=e1.datetime.time().strftime("%H:%M"), e=e1,
-                           title="Update the event")
+                           title="Update the event",
+                           event_id=event_id,
+                           )
 
 
 @bp.route('/delete_event')

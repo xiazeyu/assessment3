@@ -15,14 +15,17 @@ def book():
     event = Event.query.filter_by(id=event_id).first()
     quantity = int(request.form['quantity'])
     booked_tickets = db.session.query(
-        func.sum(Booking.quantity)).filter(event_id == event_id).scalar()
+        func.sum(Booking.quantity).filter(Booking.event_id == event_id)).scalar() or 0
     remain_tickets = event.ticketcount - booked_tickets
     if quantity <= 0:
-      flash('Quantity must be positive.')
-      return redirect(url_for('main.content.details', event_id=event_id))
+        flash('Quantity must be positive.')
+        return redirect(url_for('main.content.details', event_id=event_id))
+    if event.status == 'inactive' or event.status == 'cancelled':
+        flash(f'This event cannot book due to its {event.status} status.')
+        return redirect(url_for('main.content.details', event_id=event_id))
     if remain_tickets < quantity:
-      flash('You are ordering more than remaining tickets, so order cannot be processed.')
-      return redirect(url_for('main.content.details', event_id=event_id))
+        flash('You are ordering more than remaining tickets, so order cannot be processed.')
+        return redirect(url_for('main.content.details', event_id=event_id))
     new_booking = Booking(
         datetime=datetime.now(),
         quantity=request.form['quantity'],
@@ -32,8 +35,8 @@ def book():
         user_id=current_user.id,
         event_id=event_id,
     )
-    if remain_tickets == quantity:
-      event.status = 'booked'
+    if remain_tickets == quantity or remain_tickets == 0:
+        event.status = 'booked'
     db.session.add(new_booking)
     db.session.commit()
     flash(f'booking successfuly, your order id is #{new_booking.id}')

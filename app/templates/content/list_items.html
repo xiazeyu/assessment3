@@ -19,13 +19,25 @@
 {% endblock %} {% block content %}'
 <ul class="nav justify-content-center nav-pills">
   <li class="nav-item">
-    <a class="nav-link{% if type == 'vocal' %} active {% endif %}" href="{{ url_for('main.content.list_items', type='vocal') }}">Vocal concerts</a>
+    <a
+      class="nav-link{% if type == 'vocal' %} active {% endif %}"
+      href="{{ url_for('main.content.list_items', type='vocal') }}"
+      >Vocal concerts</a
+    >
   </li>
   <li class="nav-item">
-    <a class="nav-link{% if type == 'classical' %} active {% endif %}" href="{{ url_for('main.content.list_items', type='classical') }}">Classical concerts</a>
+    <a
+      class="nav-link{% if type == 'classical' %} active {% endif %}"
+      href="{{ url_for('main.content.list_items', type='classical') }}"
+      >Classical concerts</a
+    >
   </li>
   <li class="nav-item">
-    <a class="nav-link{% if type == 'pop' %} active {% endif %}" href="{{ url_for('main.content.list_items', type='pop') }}">Pop concerts</a>
+    <a
+      class="nav-link{% if type == 'pop' %} active {% endif %}"
+      href="{{ url_for('main.content.list_items', type='pop') }}"
+      >Pop concerts</a
+    >
   </li>
 </ul>
 <section class="py-5 text-center container">
@@ -43,26 +55,24 @@
         <div class="card shadow-sm">
           <img
             class="card-img-top"
-            width="100%"
-            height="225"
             src="{{ url_for('static', filename=item.id) }}"
           />
           <div class="card-body">
-            <h2 class="card-text">
-              {{ item.name }}
-            </h2>
-            <p class="card-text">
-              {{ item.description }}
-            </p>
+            <h2 class="card-text">{{ item.name }}</h2>
+            <p class="card-text">{{ item.description }}</p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
-                <a href="{{ url_for('main.content.details', event_id=item.id) }}">
+                <a
+                  href="{{ url_for('main.content.details', event_id=item.id) }}"
+                >
                   <button class="btn btn-sm btn-outline-primary">
                     Tell me more
                   </button>
                 </a>
                 {% if current_user.role == 'administrator' %}
-                <a href="{{ url_for('main.admin.update_event', event_id=item.id) }}">
+                <a
+                  href="{{ url_for('main.admin.update_event', event_id=item.id) }}"
+                >
                   <button
                     type="button"
                     class="btn btn-sm btn-outline-secondary"
@@ -70,20 +80,20 @@
                     Edit
                   </button>
                 </a>
-                {% endif %}
-                {% if current_user.role == 'administrator' %}
-                <a href="{{ url_for('main.admin.delete_event', event_id=item.id) }}">
-                  <button
-                    type="button"
-                    class="btn btn-sm btn-outline-secondary"
-                  >
+                {% endif %} {% if current_user.role == 'administrator' %}
+                <a
+                  href="{{ url_for('main.admin.delete_event', event_id=item.id) }}"
+                >
+                  <button type="button" class="btn btn-sm btn-outline-danger">
                     Delete
                   </button>
                 </a>
                 {% endif %}
               </div>
             </div>
-            <small class="text-muted">{{ item.price }}$, {{ item.venue }}</small>
+            <small class="text-muted"
+              >{{ item.price }}$, {{ item.venue }}</small
+            >
             <small>{{ item.status }}</small>
           </div>
         </div>
