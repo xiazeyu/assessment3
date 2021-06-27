@@ -3,7 +3,7 @@
   <a class="nav-link" href="{{ url_for('main.content.list_items') }}">Home</a>
 </li>
 <li class="nav-item">
-  <a class="nav-link active" href="#">Event Editor</a>
+  <a class="nav-link active">Event Editor</a>
 </li>
 <li class="nav-item">
   <a class="nav-link" href="{{ url_for('main.order.booking_history') }}"
@@ -112,10 +112,10 @@
       <label for="status" class="form-label">Status</label>
       <select name="status" class="form-select" aria-label="Select the status">
         <option>Status</option>
-        <option {% if e.status == "Upcoming" %} selected {% endif %} value="Upcoming">Upcoming</option>
-        <option {% if e.status == "Inactive" %} selected {% endif %} value="Inactive">Inactive</option>
-        <option {% if e.status == "Booked" %} selected {% endif %} value="Booked">Booked</option>
-        <option {% if e.status == "Cancelled" %} selected {% endif %} value="Cancelled">Cancelled</option>
+        <option {% if e.status == "upcoming" %} selected {% endif %} value="upcoming">Upcoming</option>
+        <option {% if e.status == "inactive" %} selected {% endif %} value="inactive">Inactive</option>
+        <option {% if e.status == "booked" %} selected {% endif %} value="booked">Booked</option>
+        <option {% if e.status == "cancelled" %} selected {% endif %} value="cancelled">Cancelled</option>
       </select>
     </div>
     <div class="col-6 mb-3">
