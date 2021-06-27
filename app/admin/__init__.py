@@ -38,7 +38,7 @@ def create_event():
         db.session.commit()
         event_id = new_event.id
         img_file = request.files['file']
-        filename = event_id
+        filename = str(event_id)
         BASE_PATH = os.path.dirname(__file__)
         upload_path = os.path.join(
             BASE_PATH, '../static', secure_filename(filename))
@@ -79,7 +79,7 @@ def update_event():
         e1.creator_id = current_user.id
         db.session.commit()
         img_file = request.files['file']
-        filename = event_id
+        filename = str(event_id)
         BASE_PATH = os.path.dirname(__file__)
         upload_path = os.path.join(
             BASE_PATH, '../static', secure_filename(filename))
