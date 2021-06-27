@@ -33,6 +33,7 @@ class Event(db.Model):
     description = db.Column(db.String(384), nullable=False)
     ticketcount = db.Column(db.Integer, nullable=False)
     status = db.Column(db.String(64), nullable=False)
+    # upcoming, inactive, booked, cancelled
     creator_id = db.Column(
         db.Integer, db.ForeignKey('users.id'), nullable=False)
     # relation to call event.comments and comment.event

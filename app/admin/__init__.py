@@ -34,7 +34,7 @@ def create_event():
         )
         db.session.add(new_event)
         db.session.commit()
-        flash('New event added successfully.')
+        flash(f'New event added successfully. id: #{new_event.id}')
         return redirect(url_for('main.admin.create_event'))
     return render_template('admin/event_editor.html', url=url_for('main.admin.create_event'), date="", time="", e={}, title="Create new event")
 

@@ -46,7 +46,7 @@ db.session.add(a)
 
 # create events  may have some mistakes
 event1 = Event(id='1', name='event1', type='classical', venue='square1', datetime=pt('2021-07-04 13:32'), price='500', artist='artist1',
-               description='An interesting concert', ticketcount='7000', status='active', creator_id=a.id)
+               description='An interesting concert', ticketcount='7000', status='upcoming', creator_id=a.id)
 db.session.add(event1)
 
 event2 = Event(id='2', name='event2', type='pop', venue='square2', datetime=pt('2021-04-01 15:32'), price='400', artist='artist2',
@@ -58,11 +58,11 @@ event3 = Event(id='3', name='event3', type='classical', venue='square3', datetim
 db.session.add(event3)
 
 event4 = Event(id='4', name='event4', type='pop', venue='square4', datetime=pt('2021-01-11 11:32'), price='700', artist='artist4',
-               description='Classical comcert', ticketcount='5000', status='active', creator_id=user2.id)
+               description='Classical comcert', ticketcount='5000', status='inactive', creator_id=user2.id)
 db.session.add(event4)
 
 event5 = Event(id='5', name='event5', type='vocal', venue='square2', datetime=pt('1990-12-21 02:32'), price='900', artist='artist5',
-               description='Special comcert', ticketcount='5000', status='active', creator_id=user2.id)
+               description='Special comcert', ticketcount='5000', status='inactive', creator_id=user2.id)
 db.session.add(event5)
 
 event5 = Event(id='6', name='event6', type='vocal', venue='square2', datetime=pt('1990-12-21 02:32'), price='900', artist='artist5',
@@ -70,7 +70,7 @@ event5 = Event(id='6', name='event6', type='vocal', venue='square2', datetime=pt
 db.session.add(event5)
 
 event5 = Event(id='7', name='event7', type='vocal', venue='square2', datetime=pt('1990-12-21 02:32'), price='900', artist='artist5',
-               description='Special comcert', ticketcount='5000', status='active', creator_id=user2.id)
+               description='Special comcert', ticketcount='5000', status='booked', creator_id=user2.id)
 db.session.add(event5)
 
 event5 = Event(id='8', name='event8', type='vocal', venue='square2', datetime=pt('1990-12-21 02:32'), price='900', artist='artist5',

@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from ..models import Booking, Comment, Event, User
 from flask_login import login_required, current_user
 from .. import db
+from sqlalchemy import func
 from datetime import datetime
 
 bp = Blueprint('content', __name__, url_prefix='/content')
@@ -18,7 +19,9 @@ def list_items():
 def details():
     event_id = request.args.get('event_id')
     event = Event.query.filter_by(id=event_id).first()
-    remain_tickets = event.ticketcount
+    booked_tickets = db.session.query(
+        func.sum(Booking.quantity)).filter(event_id==event_id).scalar()
+    remain_tickets = event.ticketcount - booked_tickets
     comments = Comment.query.filter_by(
         event_id=event_id).all()
     for u in comments:
