@@ -10,7 +10,7 @@ ctx = app.app_context()
 ctx.push()
 
 db.create_all()
-
+'''
 # password123
 default_password = 'pbkdf2:sha256:150000$G5ava6EK$581216dac4b0a3ab261a6b828dffd575ff073a58949a9a95f5d682d2df35c0fa'
 
@@ -104,6 +104,6 @@ comment3 = Comment(text='Excellent!', creator_id=user5.id,
                    created_at=pt('1990-12-21 02:32'),
                    event_id=event2.id)
 db.session.add(comment3)
-
+'''
 db.session.commit()
 db.session.close()
