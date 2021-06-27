@@ -6,7 +6,7 @@
 </li>
 {% if current_user.role == 'administrator' %}
 <li class="nav-item">
-  <a class="nav-link active" href="{{ url_for('main.admin.create_event') }}"
+  <a class="nav-link" href="{{ url_for('main.admin.create_event') }}"
     >Create new event</a
   >
 </li>
@@ -48,6 +48,9 @@
             src="{{ url_for('static', filename=item.id) }}"
           />
           <div class="card-body">
+            <h2 class="card-text">
+              {{ item.name }}
+            </h2>
             <p class="card-text">
               {{ item.description }}
             </p>

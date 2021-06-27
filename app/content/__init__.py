@@ -1,18 +1,13 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 from ..models import Booking, Comment, Event, User
-from flask_login import login_required
+from flask_login import login_required, current_user
 from .. import db
+from datetime import datetime
 
 bp = Blueprint('content', __name__, url_prefix='/content')
 
 
 @bp.route('/list_items')
-# / - landing page
-#   some upcoming events
-#   browse the events by category
-#   useful overview of the events
-#   information including event status
-# /?category=<str> - landing page with specific category
 def list_items():
     type = request.args.get('type') or 'vocal'
     events = Event.query.filter_by(type=type).all()
@@ -20,15 +15,40 @@ def list_items():
 
 
 @bp.route('/details')
-# /details?event_id=<int> - detail page of the event
-#   image description date other
 def details():
-    return render_template('content/details.html')
+    event_id = request.args.get('event_id')
+    event = Event.query.filter_by(id=event_id).first()
+    remain_tickets = event.ticketcount
+    comments = Comment.query.filter_by(
+        event_id=event_id).all()
+    for u in comments:
+        u.username = User.query.filter_by(id=u.creator_id).first().username
+        u.dt = u.created_at.strftime("%Y-%m-%d %H:%M")
+    step = 3
+    comments_grouped = [(comments[i:i + step], i)
+                        for i in range(0, len(comments), step)]
+    return render_template(
+        'content/details.html',
+        comments=comments_grouped,
+        event=event,
+        event_id=event_id,
+        dt=event.datetime.strftime("%Y-%m-%d %H:%M"),
+        remain_tickets=remain_tickets,
+        creator=User.query.filter_by(id=event.creator_id).first().username
+    )
 
 
-@bp.route('/new_comment')
+@bp.route('/new_comment', methods=['POST', 'GET'])
 @login_required
-# /new_comment?event_id=<int> - new comment event handler
-#   author review date
 def new_comment():
-    return render_template('content/details.html')
+    event_id = request.args.get('event_id')
+    comment = Comment(
+        text=request.form['comment_text'],
+        created_at=datetime.now(),
+        creator_id=current_user.id,
+        event_id=event_id,
+    )
+    flash('Comment added successfully.')
+    db.session.add(comment)
+    db.session.commit()
+    return redirect(url_for('main.content.details', event_id=event_id))

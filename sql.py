@@ -1,5 +1,9 @@
 from typing import Text
-from app.models import Booking, Comment, Event, User
+
+
+
+
+
 from app import db
 from app import create_app
 

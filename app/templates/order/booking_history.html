@@ -6,7 +6,7 @@
 </li>
 {% if current_user.role == 'administrator' %}
 <li class="nav-item">
-  <a class="nav-link active" href="{{ url_for('main.admin.create_event') }}">Create new event</a>
+  <a class="nav-link" href="{{ url_for('main.admin.create_event') }}">Create new event</a>
 </li>
 {% endif %}
 <li class="nav-item">

@@ -1,17 +1,19 @@
 {% extends "base.html" %}{% block header %}
 <li class="nav-item">
-  <a class="nav-link" href="{{ url_for('main.content.list_items') }}"
-    >Home</a
-  >
+  <a class="nav-link" href="{{ url_for('main.content.list_items') }}">Home</a>
 </li>
 <li class="nav-item">
-  <a class="nav-link active" href="{{ url_for('main.content.details') }}"
+  <a
+    class="nav-link active"
+    href="{{ url_for('main.content.details', event_id=event_id) }}"
     >Detail</a
   >
 </li>
 {% if current_user.role == 'administrator' %}
 <li class="nav-item">
-  <a class="nav-link active" href="{{ url_for('main.admin.create_event') }}">Create new event</a>
+  <a class="nav-link" href="{{ url_for('main.admin.create_event') }}"
+    >Create new event</a
+  >
 </li>
 {% endif %}
 <li class="nav-item">
@@ -29,79 +31,53 @@
         height="384"
         width="384"
         class="img-fluid"
-        src="imgs/v1.webp"
+        src="{{ url_for('static', filename=event.id) }}"
         class="d-block mx-lg-auto img-fluid"
         loading="lazy"
       />
     </div>
     <div class="col-lg-6">
-      <h1 class="display-5 fw-bold lh-1 mb-3">The Greate Music Concert</h1>
-      <p class="lead">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        facilisis mi dolor, in condimentum nulla aliquet sit amet. Donec nec.
-      </p>
+      <h1 class="display-5 fw-bold lh-1 mb-3">{{ event.name }}</h1>
+      <p class="lead">{{ event.description }}</p>
     </div>
   </div>
 </div>
 <div class="container col-xxl-8 px-4 py-5">
   <div class="row align-items-center g-lg-5 py-5">
     <div class="col-lg-7 text-center text-lg-start">
-      <p class="col-lg-10 fs-4 fw-bold">The Greate Music Concert</p>
-      <p class="lead">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        facilisis mi dolor, in condimentum nulla aliquet sit amet. Donec nec.
-      </p>
-      <p class="col-lg-10 fs-4">Type: Vocal</p>
-      <p class="col-lg-10 fs-4">Date & Time: 2077.1.1 12:00 p.m.</p>
-      <p class="col-lg-10 fs-4">Artist: Johnny Silverhand</p>
+      <p class="col-lg-10 fs-4 fw-bold">{{ event.name }}</p>
+      <p class="lead">{{ event.description }}</p>
+      <p class="col-lg-10 fs-4">Type: {{ event.type }}</p>
+      <p class="col-lg-10 fs-4">Date & Time: {{ dt }}</p>
+      <p class="col-lg-10 fs-4">Artist: {{ event.artist }}</p>
+      <p class="col-lg-10 fs-4">Venue: {{ event.venue }}</p>
       <p class="col-lg-10 fs-4">
-        Venue: Top Floor, The BIG Building, Nightcity
+        Ticket remains: <strong>{{ remain_tickets }}</strong>
       </p>
-      <p class="col-lg-10 fs-4">Ticket remains: <strong>499</strong></p>
-      <p class="col-lg-10 fs-4">Price per ticket: <strong>$20</strong></p>
-      <p class="col-lg-10 fs-4">Status: Active</p>
-      <p class="col-lg-10 fs-4">Creator: CD Project</p>
-      <button type="button" class="btn btn-primary" disabled>
-        Update event details
-      </button>
+      <p class="col-lg-10 fs-4">
+        Price per ticket: <strong>${{ event.price }}</strong>
+      </p>
+      <p class="col-lg-10 fs-4">Status: {{ event.status }}</p>
+      <p class="col-lg-10 fs-4">Creator: {{ creator }}</p>
+      {% if current_user.role == 'administrator' %}
+      <a href="{{ url_for('main.admin.update_event', event_id=event_id) }}">
+        <button type="button" class="btn btn-primary">
+          Update event details
+        </button></a
+      >
+      <a href="{{ url_for('main.admin.delete_event', event_id=event_id) }}">
+        <button type="button" class="btn btn-primary">Delete event</button></a
+      >
+      {% endif %}
     </div>
 
     <div class="col-md-10 mx-auto col-lg-5">
-      <form class="p-4 p-md-5 border rounded-3 bg-light">
-        <h4 class="mb-3">Payment</h4>
-        <div class="form-floating mb-3 row g-3">
-          <div class="form-floating col-sm-6">
-            <input
-              type="text"
-              class="form-control"
-              id="firstName"
-              placeholder=""
-              required
-            />
-            <label for="firstName">First Name</label>
-            <div class="invalid-feedback">Valid first name is required.</div>
-          </div>
-          <div class="form-floating col-sm-6">
-            <input
-              type="text"
-              class="form-control"
-              id="lastName"
-              placeholder=""
-              required
-            />
-            <label for="lastName">Last Name</label>
-            <div class="invalid-feedback">Valid last name is required.</div>
-          </div>
-        </div>
-
-        <div class="form-floating mb-3">
-          <input type="email" class="form-control" id="email" />
-          <label for="email"
-            >Email address<span class="text-muted">(Optional)</span></label
-          >
-          <div class="invalid-feedback">Valid Email address is required.</div>
-        </div>
-
+      <form
+        class="p-4 p-md-5 border rounded-3 bg-light"
+        action="{{ url_for('main.order.book', event_id=event_id) }}"
+        method="GET"
+      >
+        <h4 class="mb-3">Order Now</h4>
         <div
           class="modal fade"
           id="quantityModal"
@@ -128,6 +104,7 @@
                     type="number"
                     class="form-control"
                     id="quantity"
+                    name="quantity"
                     value="1"
                     required
                   />
@@ -162,7 +139,7 @@
           <div class="form-check">
             <input
               id="cash"
-              name="paymentMethod"
+              name="payment"
               type="radio"
               class="form-check-input"
               checked
@@ -173,7 +150,7 @@
           <div class="form-check">
             <input
               id="paypal"
-              name="paymentMethod"
+              name="payment"
               type="radio"
               class="form-check-input"
               required
@@ -183,7 +160,7 @@
           <div class="form-check">
             <input
               id="alipay"
-              name="paymentMethod"
+              name="payment"
               type="radio"
               class="form-check-input"
               required
@@ -194,14 +171,11 @@
 
         <hr class="my-4" />
 
-        <li class="list-group-item d-flex justify-content-between">
-          <span>Total (USD)</span>
-          <strong>$20</strong>
-        </li>
-
-        <hr class="my-4" />
-
-        <a class="w-100 btn btn-lg btn-primary" type="submit" href="{{ url_for('main.content.list_items') }}">
+        <a
+          class="w-100 btn btn-lg btn-primary"
+          type="submit"
+          href="{{ url_for('main.content.list_items') }}"
+        >
           BOOK NOW!
         </a>
         <hr class="my-4" />
@@ -224,135 +198,25 @@
     data-bs-ride="carousel"
   >
     <div class="carousel-inner text-center">
-      <div class="carousel-item active">
+      {% for group in comments %}
+      <div class="carousel-item {% if group[1] == 0 %} active {% endif %}">
         <div class="row">
+          {% for item in group[0] %}
           <div class="col-lg-4">
             <img
               class="rounded-circle"
               width="140"
               height="140"
-              src="imgs/ava.png"
+              src="{{ url_for('static', filename='ava.png') }}"
             />
-            <h2>Smart User 1</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-              bibendum.
-            </p>
+            <h2>{{ item.username }}</h2>
+            <p>{{ item.text }}</p>
+            <p>{{ item.dt }}</p>
           </div>
-          <div class="col-lg-4">
-            <img
-              class="rounded-circle"
-              width="140"
-              height="140"
-              src="imgs/ava.png"
-            />
-            <h2>Smart User 2</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-              bibendum.
-            </p>
-          </div>
-          <div class="col-lg-4">
-            <img
-              class="rounded-circle"
-              width="140"
-              height="140"
-              src="imgs/ava.png"
-            />
-            <h2>Smart User 3</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-              bibendum.
-            </p>
-          </div>
+          {% endfor %}
         </div>
       </div>
-      <div class="carousel-item">
-        <div class="row">
-          <div class="col-lg-4">
-            <img
-              class="rounded-circle"
-              width="140"
-              height="140"
-              src="imgs/ava.png"
-            />
-            <h2>Smart User 4</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-              bibendum.
-            </p>
-          </div>
-          <div class="col-lg-4">
-            <img
-              class="rounded-circle"
-              width="140"
-              height="140"
-              src="imgs/ava.png"
-            />
-            <h2>Smart User 5</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-              bibendum.
-            </p>
-          </div>
-          <div class="col-lg-4">
-            <img
-              class="rounded-circle"
-              width="140"
-              height="140"
-              src="imgs/ava.png"
-            />
-            <h2>Smart User 6</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-              bibendum.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="row">
-          <div class="col-lg-4">
-            <img
-              class="rounded-circle"
-              width="140"
-              height="140"
-              src="imgs/ava.png"
-            />
-            <h2>Smart User 7</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-              bibendum.
-            </p>
-          </div>
-          <div class="col-lg-4">
-            <img
-              class="rounded-circle"
-              width="140"
-              height="140"
-              src="imgs/ava.png"
-            />
-            <h2>Smart User 8</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-              bibendum.
-            </p>
-          </div>
-          <div class="col-lg-4">
-            <img
-              class="rounded-circle"
-              width="140"
-              height="140"
-              src="imgs/ava.png"
-            />
-            <h2>Smart User 9</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-              bibendum.
-            </p>
-          </div>
-        </div>
-      </div>
+      {% endfor %}
     </div>
     <button
       class="carousel-control-prev"
@@ -377,12 +241,17 @@
 
 <div class="container col-xxl-8 px-4 py-5">
   <h2>Post new comment</h2>
-  <form class="row g-3">
+  <form
+    class="row g-3"
+    action="{{ url_for('main.content.new_comment', event_id=event_id) }}"
+    method="POST"
+  >
     <div class="form-floating col-12">
       <textarea
         class="form-control"
         placeholder="Leave a comment here"
         id="comment"
+        name="comment_text"
         style="height: 100px"
       ></textarea>
       <label for="comment">Leave a comment here</label>
